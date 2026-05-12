@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Sensor</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    canvas {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>(NamaKota/Kab)</h2>
+  <canvas id="luxChart" width="600" height="300"></canvas>
+
+  <script>
+    const ctx = document.getElementById('luxChart').getContext('2d');
+    const luxChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Lux Level',
+          data: [],
+          borderColor: 'blue',
+          backgroundColor: 'rgba(0, 123, 255, 0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 'Timestamp' } },
+          y: { title: { display: true, text: 'Lux' }, beginAtZero: true }
+        }
+      }
+    });
+
+    async function fetchLuxData() {
+      try {
+        const response = await fetch('Your Endpoint');
+        const data = await response.json();
+
+        const sorted = data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+        luxChart.data.labels = sorted.map(item => new Date(item.timestamp).toLocaleTimeString());
+        luxChart.data.datasets[0].data = sorted.map(item => item.lux);
+        luxChart.update();
+      } catch (error) {
+        console.error('❌ Failed to fetch data:', error);
+      }
+    }
+
+    // Fetch data every 5 seconds
+    fetchLuxData();
+    setInterval(fetchLuxData, 5000);
+  </script>
+</body>
+</html>

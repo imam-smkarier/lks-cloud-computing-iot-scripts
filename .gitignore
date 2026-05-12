@@ -1,0 +1,41 @@
+# AWS Credentials
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+aws-credentials*
+.aws/
+
+# Env files
+.env
+.env.*
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
