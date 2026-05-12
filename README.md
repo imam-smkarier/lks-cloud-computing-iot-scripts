@@ -29,7 +29,7 @@ Semua resource AWS **WAJIB** dibuat di region **`ap-southeast-1` (Asia Pacific â
 
 | File | Fungsi |
 |------|--------|
-| [`pubsub.py`](pubsub.py) | Sensor simulator utama menggunakan AWS IoT Device SDK v2 (AWS CRT). Dipakai setelah men-download *Connection Kit* dari AWS IoT Core. Mem-publish payload JSON berisi `device_id`, `lux`, dan `timestamp`. |
+| [`pubsub.py`](pubsub.py) | Sensor simulator versi standalone yang direkomendasikan Juri. Script ini menggunakan AWS IoT Device SDK v2, tidak memerlukan import `utils.command_line_utils`, dan 100% kompatibel dengan script bawaan Connection Kit (`start.sh` / `start.ps1`). Mendukung argumen standar seperti `--endpoint`, `--cert`, `--key`, `--ca_file`, `--client_id`, `--topic`, `--count`, dan `--message`. |
 | [`sensor-push.py`](sensor-push.py) | Alternatif sensor simulator sederhana menggunakan library `paho-mqtt`. Cocok jika peserta kesulitan setup AWS CRT. |
 | [`lambda_write.py`](lambda_write.py) | Kode Lambda function untuk menulis data sensor ke DynamoDB (dipicu oleh IoT Rule). |
 | [`lambda_read.py`](lambda_read.py) | Kode Lambda function untuk membaca data sensor dari DynamoDB (dipublish via API Gateway). |
